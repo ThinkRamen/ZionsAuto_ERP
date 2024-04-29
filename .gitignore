@@ -4,3 +4,31 @@ db.sqlite3
 /env
 *.env
 .vscode
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore the virtual environment directory (if you're using one)
+venv/
+
+# Ignore local settings (such as database credentials)
+*.env
+
+# Ignore log files
+*.log
+
+# Ignore SQLite database file
+*.sqlite3
+
+# Ignore media and static files (if using collectstatic)
+/media/
+/static/
+
+# Ignore compiled translations
+*.mo
+
+# Ignore Django migrations (unless they are managed in a separate directory)
+*/migrations/
+
+# Ignore any other files or directories that are specific to your development environment or workflow

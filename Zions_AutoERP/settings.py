@@ -24,10 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 DEBUG = os.environ.get("DEBUG")
+IP = (
+    os.environ.get("DEV_IP")
+    if os.environ.get("DEV") == "True"
+    else os.environ.get("PROD_IP")
+)
 
-ALLOWED_HOSTS = ["10.0.0.93", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", IP]
 
 
 # Application definition

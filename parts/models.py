@@ -5,8 +5,10 @@ import uuid
 import qrcode
 from io import BytesIO
 from django.core.files import File
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from django.urls import reverse
+from dotenv import load_dotenv
+from django.conf import settings
 
 
 class Part(models.Model):
@@ -25,6 +27,8 @@ class Part(models.Model):
     vehicle = models.ForeignKey(
         Vehicle, on_delete=models.CASCADE, related_name="parts", null=True, blank=True
     )
+    photos = models.ImageField(upload_to="vehicle_photos", blank=True, null=True)
+    receipts = models.ImageField(upload_to="receipt_photos", blank=True, null=True)
     barcode = models.CharField(max_length=8, blank=True, null=True)
     qr_code = models.ImageField(upload_to="qr_codes", blank=True, null=True)
     serial_number = models.CharField(max_length=6, unique=True, blank=True, null=True)
@@ -48,13 +52,19 @@ class Part(models.Model):
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
-            border=4,
+            border=6,
         )
-        qr.add_data(f"http://127.0.0.1:8000{part_url}")
+        qr.add_data(f"{settings.IP}:8000{part_url}")
         qr.make(fit=True)
 
         # Create PIL image
         img = qr.make_image(fill_color="black", back_color="white")
+        draw = ImageDraw.Draw(img)
+
+        # Add text to the image
+        text = f"{self.__str__()}\nSerial Number: {self.serial_number}"
+        draw.text((10, 10), text, fill="black")
+
         buffer = BytesIO()
         img.save(buffer, format="PNG")
         filename = f"{self.name}_{uuid.uuid4().hex[:8]}.png"  # Using a portion of UUID as a unique identifier

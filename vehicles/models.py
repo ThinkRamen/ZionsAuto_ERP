@@ -1,8 +1,6 @@
 from django.db import models
 from locations.models import Location
 
-# Create your models here.
-
 
 class Vehicle(models.Model):
     make = models.CharField(max_length=100)
@@ -24,7 +22,6 @@ class Vehicle(models.Model):
     transmission = models.CharField(max_length=50)
     engine_size = models.DecimalField(max_digits=4, decimal_places=2)
     acquisition_cost = models.DecimalField(max_digits=6, decimal_places=2)
-    photos = models.ImageField(upload_to="vehicle_photos", blank=True, null=True)
     total_parts_cost = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )
@@ -38,3 +35,43 @@ class Vehicle(models.Model):
             sum(part.price for part in self.parts.all()) + self.acquisition_cost
         )
         super().save(*args, **kwargs)
+
+
+class VehiclePhoto(models.Model):
+    vehicle = models.ForeignKey(
+        Vehicle,
+        on_delete=models.CASCADE,
+        related_name="vehicle_photos",
+        null=True,
+        blank=True,
+    )
+    image = models.ImageField(upload_to="vehicle_photos/")
+
+    def __str__(self):
+        return f"Vehicle Photo - {self.pk}"
+
+
+class VehicleDocument(models.Model):
+    vehicle = models.ForeignKey(
+        Vehicle,
+        on_delete=models.CASCADE,
+        related_name="vehicle_documents",
+        null=True,
+        blank=True,
+    )
+    file = models.FileField(upload_to="document_files/")
+
+
+class TodoItem(models.Model):
+    description = models.CharField(max_length=255)
+    completed = models.BooleanField(default=False)
+    vehicle = models.ForeignKey(
+        "Vehicle",
+        on_delete=models.CASCADE,
+        related_name="todo_items",
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return f"Vehicle Document - {self.pk}"

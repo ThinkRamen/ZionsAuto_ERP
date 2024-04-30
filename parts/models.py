@@ -6,6 +6,7 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image
+from django.urls import reverse
 
 
 class Part(models.Model):
@@ -28,6 +29,9 @@ class Part(models.Model):
     qr_code = models.ImageField(upload_to="qr_codes", blank=True, null=True)
     serial_number = models.CharField(max_length=6, unique=True, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.name} - {self.part_number} - {self.vehicle}"  # Customize the representation
+
     def save(self, *args, **kwargs):
         if not self.serial_number:
             self.serial_number = (
@@ -36,6 +40,9 @@ class Part(models.Model):
         if not self.barcode:
             self.barcode = uuid.uuid4().hex[:8].upper()  # Generate unique barcode
 
+        # Generate URL for the part's admin view
+        part_url = reverse("admin:parts_part_change", args=[self.pk])
+
         # Generate QR code
         qr = qrcode.QRCode(
             version=1,
@@ -43,19 +50,16 @@ class Part(models.Model):
             box_size=10,
             border=4,
         )
-        qr.add_data(self.name)
+        qr.add_data(f"http://127.0.0.1:8000{part_url}")
         qr.make(fit=True)
 
         # Create PIL image
         img = qr.make_image(fill_color="black", back_color="white")
         buffer = BytesIO()
         img.save(buffer, format="PNG")
-        filename = f"{self.name}_qr.png"
+        filename = f"{self.name}_{uuid.uuid4().hex[:8]}.png"  # Using a portion of UUID as a unique identifier
 
         # Save image to the model field
         self.qr_code.save(filename, File(buffer), save=False)
 
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.name} - {self.part_number} - {self.vehicle}"  # Customize the representation

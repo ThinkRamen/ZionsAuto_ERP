@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ["10.0.0.93", "localhost"]
+ALLOWED_HOSTS = ["10.0.0.93", "localhost", "127.0.0.1"]
 
 
 # Application definition

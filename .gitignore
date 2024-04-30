@@ -10,7 +10,7 @@ db.sqlite3
 __pycache__/
 
 # Ignore the virtual environment directory (if you're using one)
-venv/
+.venv/
 
 # Ignore local settings (such as database credentials)
 *.env
@@ -22,8 +22,8 @@ venv/
 *.sqlite3
 
 # Ignore media and static files (if using collectstatic)
-/media/
-/static/
+*/media/
+*/static/
 
 # Ignore compiled translations
 *.mo

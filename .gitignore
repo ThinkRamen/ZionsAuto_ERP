@@ -22,8 +22,8 @@ __pycache__/
 *.sqlite3
 
 # Ignore media and static files (if using collectstatic)
-*/media/
-*/static/
+media/
+static/
 
 # Ignore compiled translations
 *.mo

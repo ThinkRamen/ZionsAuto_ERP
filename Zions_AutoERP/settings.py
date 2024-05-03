@@ -30,7 +30,7 @@ IP = (
     if os.environ.get("DEV") == "True"
     else os.environ.get("PROD_IP")
 )
-
+print(IP)
 ALLOWED_HOSTS = ["localhost", IP]
 
 

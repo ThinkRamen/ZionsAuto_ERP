@@ -139,7 +139,7 @@ if USE_S3:
     # aws settings
     AWS_ACCESS_KEY_ID = os.getenv("SUPA_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.getenv("SUPA_SECRET_KEY")
-    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("SUPA_STORAGE_BUCKET_NAME")
     AWS_S3_REGION_NAME = os.getenv("SUPA_S3_REGION_NAME")
     AWS_S3_CUSTOM_DOMAIN = os.getenv("SUPA_S3_DOMAIN")
     # s3 static settings

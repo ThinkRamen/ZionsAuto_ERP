@@ -54,7 +54,7 @@ class Part(models.Model):
             box_size=10,
             border=6,
         )
-        qr.add_data(f"{settings.IP}:8000{part_url}")
+        qr.add_data(f"https://zions-auto-erp.vercel.app{part_url}")
         qr.make(fit=True)
 
         # Create PIL image

@@ -4,7 +4,8 @@ db.sqlite3
 /env
 *.env
 .vscode
-
+media/
+staticfiles/
 # Ignore compiled Python files
 *.pyc
 __pycache__/

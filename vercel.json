@@ -1,7 +1,7 @@
 {
 	"builds": [
 		{
-			"src": "build_files.sh",
+			"src": "./build_files.sh",
 			"use": "@vercel/static-build",
 			"config": {
 				"distDir": "staticfiles_build"
@@ -16,7 +16,7 @@
 	"routes": [
 		{
 			"src": "/(.*)",
-			"dest": "Zions_AutoERP/wsgi.py"
+			"dest": "/Zions_AutoERP/wsgi.py"
 		},
 		{
 			"src": "/static/(.*)",

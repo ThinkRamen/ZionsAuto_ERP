@@ -31,7 +31,7 @@ IP = (
     else os.environ.get("PROD_IP")
 )
 print(IP)
-ALLOWED_HOSTS = ["*", "localhost", "10.0.0.93", "10.0.0.93:8000"]
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "localhost", "10.0.0.93", "10.0.0.93:8000"]
 
 
 # Application definition
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "Zions_AutoERP.wsgi.application"
+WSGI_APPLICATION = "Zions_AutoERP.wsgi.app"
 
 
 # Database

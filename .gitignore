@@ -32,3 +32,4 @@ static/
 */migrations/
 
 # Ignore any other files or directories that are specific to your development environment or workflow
+.vercel

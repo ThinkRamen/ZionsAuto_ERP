@@ -23,7 +23,7 @@ __pycache__/
 # Ignore media and static files (if using collectstatic)
 media/
 static/
-
+staticfiles/
 # Ignore compiled translations
 *.mo
 

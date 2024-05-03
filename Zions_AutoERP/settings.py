@@ -31,7 +31,7 @@ IP = (
     else os.environ.get("PROD_IP")
 )
 print(IP)
-ALLOWED_HOSTS = ["localhost", f"{IP}:8000", IP]
+ALLOWED_HOSTS = ["localhost", "10.0.0.93", "10.0.0.93:8000"]
 
 
 # Application definition

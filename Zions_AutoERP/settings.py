@@ -135,19 +135,13 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Google Cloud Storage Credentials
 gcs_credentials = service_account.Credentials.from_service_account_info(
     json.loads(os.getenv("GOOGLE_SERVICE_KEY"))
 )
 
-
 # Set the Google Cloud Storage Bucket Name
 GCS_BUCKET_NAME = "zions-autoerp-static"
-
-# Google Cloud Storage Credentials
-
-# Static and Media settings
-STATIC_URL = "https://storage.googleapis.com/{}/static/".format(GCS_BUCKET_NAME)
-MEDIA_URL = "https://storage.googleapis.com/{}/media/".format(GCS_BUCKET_NAME)
 
 # Storage Classes
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
@@ -163,4 +157,4 @@ GS_PROJECT_ID = "zions-autoerp"
 STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}"
 MEDIA_URL = f"https://storage.googleapis.com/{GS_MEDIA_NAME}/"
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

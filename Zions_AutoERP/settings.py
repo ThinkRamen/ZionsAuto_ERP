@@ -14,6 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 from google.cloud import storage
+import json
 from google.oauth2 import service_account
 
 
@@ -134,10 +135,11 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-GCS_JSON_KEY_FILE = "zions-autoerp-90c4226fdac3.json"
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    GCS_JSON_KEY_FILE
+gcs_credentials = service_account.Credentials.from_service_account_info(
+    json.loads(os.getenv("GOOGLE_SERVICE_KEY"))
 )
+
+
 # Set the Google Cloud Storage Bucket Name
 GCS_BUCKET_NAME = "zions-autoerp-static"
 
@@ -154,7 +156,7 @@ STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 # Google Cloud Storage Configuration
 GS_BUCKET_NAME = GCS_BUCKET_NAME
 GS_MEDIA_NAME = "zions-autoerp-media"
-GS_JSON_KEY_FILE = GCS_JSON_KEY_FILE
+GS_CREDENTIALS = gcs_credentials
 
 GS_PROJECT_ID = "zions-autoerp"
 

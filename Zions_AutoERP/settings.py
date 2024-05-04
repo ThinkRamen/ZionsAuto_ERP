@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from google.cloud import storage
+from google.oauth2 import service_account
+
+
+# Now you can use the `storage_client` to interact with Google Cloud Storage
 
 load_dotenv()
 
@@ -129,31 +134,31 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+GCS_JSON_KEY_FILE = "zions-autoerp-90c4226fdac3.json"
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    GCS_JSON_KEY_FILE
+)
+# Set the Google Cloud Storage Bucket Name
+GCS_BUCKET_NAME = "zions-autoerp-static"
 
-DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
-STATICFILES_STORAGE = "storages.backends.s3.S3Storage"
+# Google Cloud Storage Credentials
 
-USE_S3 = os.getenv("USE_S3") == True
+# Static and Media settings
+STATIC_URL = "https://storage.googleapis.com/{}/static/".format(GCS_BUCKET_NAME)
+MEDIA_URL = "https://storage.googleapis.com/{}/media/".format(GCS_BUCKET_NAME)
 
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv("SUPA_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = os.getenv("SUPA_SECRET_KEY")
-    AWS_STORAGE_BUCKET_NAME = os.getenv("SUPA_STORAGE_BUCKET_NAME")
-    AWS_S3_REGION_NAME = os.getenv("SUPA_S3_REGION_NAME")
-    AWS_S3_CUSTOM_DOMAIN = os.getenv("SUPA_S3_DOMAIN")
-    # s3 static settings
-    STATIC_LOCATION = "static"
-    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
-    STATICFILES_STORAGE = "Zions_AutoERP.storage_backends.StaticStorage"
-    # s3 public media settings
-    PUBLIC_MEDIA_LOCATION = "media"
-    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-    DEFAULT_FILE_STORAGE = "Zions_AutoERP.storage_backends.PublicMediaStorage"
-else:
-    STATIC_URL = "/static/"
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+# Storage Classes
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+
+# Google Cloud Storage Configuration
+GS_BUCKET_NAME = GCS_BUCKET_NAME
+GS_MEDIA_NAME = "zions-autoerp-media"
+GS_JSON_KEY_FILE = GCS_JSON_KEY_FILE
+
+GS_PROJECT_ID = "zions-autoerp"
+
+STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}"
+MEDIA_URL = f"https://storage.googleapis.com/{GS_MEDIA_NAME}/"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

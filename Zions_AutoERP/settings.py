@@ -141,20 +141,18 @@ gcs_credentials = service_account.Credentials.from_service_account_info(
 )
 
 # Set the Google Cloud Storage Bucket Name
-GCS_BUCKET_NAME = "zions-autoerp-static"
+GS_BUCKET_NAME = "zions-autoerp-static"
 
 # Storage Classes
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 
 # Google Cloud Storage Configuration
-GS_BUCKET_NAME = GCS_BUCKET_NAME
 GS_MEDIA_NAME = "zions-autoerp-media"
 GS_CREDENTIALS = gcs_credentials
 
 GS_PROJECT_ID = "zions-autoerp"
 
-STATIC_URL = f"https://storage.googleapis.com/{GS_BUCKET_NAME}"
-MEDIA_URL = f"https://storage.googleapis.com/{GS_MEDIA_NAME}/"
-
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# Static and Media settings
+STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static"
+MEDIA_URL = "https://storage.googleapis.com/zions-autoerp-media/"

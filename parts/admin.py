@@ -6,20 +6,6 @@ from semantic_admin import SemanticModelAdmin
 from django.db import models
 
 
-class QRCodePreviewWidget(AdminFileWidget):
-    def render(self, name, value, attrs=None, renderer=None):
-        output = []
-        if value:
-            image_url = value.url
-            output.append(
-                f"<div class='ui fluid image'><a href=\"#\" onclick=\"window.open('{image_url}', '_blank');\">"
-                f'<img src="{image_url}" alt="QR Code Preview"/>'
-                f"</a></div>"
-            )
-        output.append(super().render(name, value, attrs, renderer))
-        return mark_safe("".join(output))
-
-
 class PartAdmin(SemanticModelAdmin):
     fields = [
         "name",
@@ -35,14 +21,11 @@ class PartAdmin(SemanticModelAdmin):
         "qr_code_preview",
     ]
     readonly_fields = ["qr_code_preview"]
-    formfield_overrides = {
-        models.ImageField: {"widget": QRCodePreviewWidget},
-    }
 
     def qr_code_preview(self, obj):
         if obj.qr_code:
             return mark_safe(
-                f"<div class='ui fluid image'><a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
+                f"<div class='image'><a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
                 f'<img src="{obj.qr_code.url}" alt="QR Code Preview"/>'
                 f"</a></div>"
             )

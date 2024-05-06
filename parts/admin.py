@@ -12,9 +12,9 @@ class QRCodePreviewWidget(AdminFileWidget):
         if value:
             image_url = value.url
             output.append(
-                f"<a href=\"#\" onclick=\"window.open('{image_url}', '_blank');\">"
+                f"<div><a href=\"#\" onclick=\"window.open('{image_url}', '_blank');\">"
                 f'<img src="{image_url}" alt="QR Code Preview"/>'
-                f"</a>"
+                f"</a></div>"
             )
         output.append(super().render(name, value, attrs, renderer))
         return mark_safe("".join(output))

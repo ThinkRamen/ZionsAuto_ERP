@@ -63,11 +63,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "Zions_AutoERP.urls"
-
+print(os.path.join(BASE_DIR, "templates/"))
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates/"),
+            "/Zions_AutoERP/Zions_AutoERP/templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

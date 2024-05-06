@@ -25,9 +25,9 @@ class PartAdmin(SemanticModelAdmin):
     def qr_code_preview(self, obj):
         if obj.qr_code:
             return mark_safe(
-                f"<div class='image'><a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
-                f'<img src="{obj.qr_code.url}" alt="QR Code Preview"/>'
-                f"</a></div>"
+                f"<a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
+                f'<img src="{obj.qr_code.url}" alt="QR Code Preview" class="ui centered image"/>'
+                f"</a><"
             )
         return "-"
 

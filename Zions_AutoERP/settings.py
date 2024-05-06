@@ -37,6 +37,9 @@ ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "localhost", "10.0.0.93", "10.0.0.9
 # Application definition
 
 INSTALLED_APPS = [
+    # "unfold",  # before django.contrib.admin
+    # "unfold.contrib.filters",  # optional, if special filters are needed
+    # "unfold.contrib.forms",  # optional, if special form elements are needed
     "vehicles",
     "parts",
     "locations",
@@ -154,5 +157,5 @@ GS_CREDENTIALS = gcs_credentials
 GS_PROJECT_ID = "zions-autoerp"
 
 # Static and Media settings
-STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static"
+STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static/"
 MEDIA_URL = "https://storage.googleapis.com/zions-autoerp-media/"

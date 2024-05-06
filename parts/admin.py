@@ -12,9 +12,9 @@ class QRCodePreviewWidget(AdminFileWidget):
         if value:
             image_url = value.url
             output.append(
-                f"<Container><a href=\"#\" onclick=\"window.open('{image_url}', '_blank');\">"
+                f"<div class='ui fluid image'><a href=\"#\" onclick=\"window.open('{image_url}', '_blank');\">"
                 f'<img src="{image_url}" alt="QR Code Preview"/>'
-                f"</a></Container>"
+                f"</a></div>"
             )
         output.append(super().render(name, value, attrs, renderer))
         return mark_safe("".join(output))
@@ -42,9 +42,9 @@ class PartAdmin(SemanticModelAdmin):
     def qr_code_preview(self, obj):
         if obj.qr_code:
             return mark_safe(
-                f"<a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
+                f"<div class='ui fluid image'><a href=\"#\" onclick=\"window.open('{obj.qr_code.url}', '_blank');\">"
                 f'<img src="{obj.qr_code.url}" alt="QR Code Preview"/>'
-                f"</a>"
+                f"</a></div>"
             )
         return "-"
 

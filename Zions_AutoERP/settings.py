@@ -37,13 +37,12 @@ ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "localhost", "10.0.0.93", "10.0.0.9
 # Application definition
 
 INSTALLED_APPS = [
-    # "unfold",  # before django.contrib.admin
-    # "unfold.contrib.filters",  # optional, if special filters are needed
-    # "unfold.contrib.forms",  # optional, if special form elements are needed
     "vehicles",
     "parts",
     "locations",
     "jobs",
+    "semantic_admin",
+    "semantic_forms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

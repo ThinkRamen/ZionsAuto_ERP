@@ -7,7 +7,6 @@ certifi==2024.2.2
 charset-normalizer==3.3.2
 Django==4.2.11
 django-storages==1.14.2
-django-unfold==0.22.0
 google-api-core==2.19.0
 google-auth==2.29.0
 google-cloud-core==2.4.1
@@ -16,6 +15,7 @@ google-crc32c==1.5.0
 google-resumable-media==2.7.0
 googleapis-common-protos==1.63.0
 idna==3.7
+import-export==0.3.1
 jmespath==1.0.1
 pillow==10.3.0
 pip-autoremove==0.10.0

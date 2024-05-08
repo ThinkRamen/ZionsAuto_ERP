@@ -37,6 +37,9 @@ class Part(models.Model):
         return f"{self.name} - {self.part_number} - {self.vehicle}"  # Customize the representation
 
     def save(self, *args, **kwargs):
+        # Check if the Vehicle instance has a primary key (i.e., has been saved to the database)
+        if self.pk is None:
+            super().save(*args, **kwargs)  # Save the Part instance first
         if not self.serial_number:
             self.serial_number = (
                 uuid.uuid4().hex[:6].upper()

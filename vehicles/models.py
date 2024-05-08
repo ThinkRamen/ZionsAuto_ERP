@@ -30,6 +30,10 @@ class Vehicle(models.Model):
         return f"{self.year} {self.make} {self.model} {self.color} {self.vin}"  # Customize the representation
 
     def save(self, *args, **kwargs):
+        # Check if the Vehicle instance has a primary key (i.e., has been saved to the database)
+        if self.pk is None:
+            super().save(*args, **kwargs)  # Save the Vehicle instance first
+
         # Calculate the total cost of all parts associated with this vehicle
         self.total_parts_cost = (
             sum(part.price for part in self.parts.all()) + self.acquisition_cost

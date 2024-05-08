@@ -1,0 +1,55 @@
+<!-- vehicles/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vehicle Inventory</title>
+		<!-- Semantic UI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+		/>
+	</head>
+	<body>
+		<div class="ui container">
+			<h1 class="ui header">Vehicle Inventory</h1>
+			<div class="ui relaxed divided list">
+				{% for vehicle in vehicles %}
+				<div class="item">
+					<div class="ui tiny image">
+						<img src="{{ vehicle.vehicle_photos}}" alt="Vehicle Photo" />
+					</div>
+					<div class="content">
+						<div class="header">
+							{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}
+						</div>
+						<div class="description">
+							Color: {{ vehicle.color }} <br />
+							VIN: {{ vehicle.vin }} <br />
+							Mileage: {{ vehicle.mileage }} miles <br />
+							Fuel Type: {{ vehicle.fuel_type }} <br />
+							Transmission: {{ vehicle.transmission }} <br />
+							Engine Size: {{ vehicle.engine_size }} <br />
+							Acquisition Cost: ${{ vehicle.acquisition_cost }} <br />
+							Total Parts Cost: ${{ vehicle.total_parts_cost }} <br />
+							{% if vehicle.key_location %} Key Location: {{
+							vehicle.key_location }} {% endif %}
+						</div>
+					</div>
+				</div>
+				{% empty %}
+				<div class="item">
+					<div class="content">
+						<div class="header">No vehicles found.</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<!-- Semantic UI JS (jQuery dependency included) -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+	</body>
+</html>

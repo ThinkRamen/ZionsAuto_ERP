@@ -5,10 +5,8 @@ import uuid
 import qrcode
 from io import BytesIO
 from django.core.files import File
-from PIL import Image, ImageDraw, ImageFont
+from PIL import ImageDraw
 from django.urls import reverse
-from dotenv import load_dotenv
-from django.conf import settings
 
 
 class Part(models.Model):

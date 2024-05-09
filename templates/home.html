@@ -1,55 +1,76 @@
 <!-- vehicles/templates/home.html -->
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vehicle Inventory</title>
-		<!-- Semantic UI CSS -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
-		/>
-	</head>
-	<body>
-		<div class="ui container">
-			<h1 class="ui header">Vehicle Inventory</h1>
-			<div class="ui relaxed divided list">
-				{% for vehicle in vehicles %}
-				<div class="item">
-					<div class="ui tiny image">
-						<img src="{{ vehicle.vehicle_photos}}" alt="Vehicle Photo" />
-					</div>
-					<div class="content">
-						<div class="header">
-							{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}
-						</div>
-						<div class="description">
-							Color: {{ vehicle.color }} <br />
-							VIN: {{ vehicle.vin }} <br />
-							Mileage: {{ vehicle.mileage }} miles <br />
-							Fuel Type: {{ vehicle.fuel_type }} <br />
-							Transmission: {{ vehicle.transmission }} <br />
-							Engine Size: {{ vehicle.engine_size }} <br />
-							Acquisition Cost: ${{ vehicle.acquisition_cost }} <br />
-							Total Parts Cost: ${{ vehicle.total_parts_cost }} <br />
-							{% if vehicle.key_location %} Key Location: {{
-							vehicle.key_location }} {% endif %}
-						</div>
-					</div>
-				</div>
-				{% empty %}
-				<div class="item">
-					<div class="content">
-						<div class="header">No vehicles found.</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-
-		<!-- Semantic UI JS (jQuery dependency included) -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vehicle Inventory</title>
+        <!-- Semantic UI CSS -->
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    </head>
+    <body>
+        {% comment %} <-- START:Navbar --> {% endcomment %}
+        <div class="ui borderless huge menu">
+            <div class="ui container grid">
+                <div class="left item"></div>
+                <h1 class="header item">Zions Auto Sales</h1>
+                <div class="right item"></div>
+            </div>
+        </div>
+        {% comment %} <-- END: Navbar --> {% endcomment %}
+        <div class="ui container">
+            <h2 class="ui header">Vehicle Inventory</h2>
+            <div class="ui relaxed divided list">
+                {% for vehicle in vehicles %}
+                    {% with vehicle.vehicle_photos.first as photo %}
+                        <div class="ui item">
+                            {% if photo %}
+                                <div class="ui image small left floated">
+                                    <img src="{{ photo.image.url }}"
+                                         alt="Vehicle Photo"
+                                         height="150"
+                                         width="150" />
+                                </div>
+                            {% else %}
+                                <div class="ui square image small left floated placeholder">
+                                    <div class="square image" alt="No Image"></div>
+                                </div>
+                            {% endif %}
+                            <div class="content">
+                                <h2 class="header">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
+                                <div class="meta">
+                                    <span>Color: {{ vehicle.color }}</span>
+                                    <span>VIN: {{ vehicle.vin }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+        {% comment %} <-- START:BottomNav --> {% endcomment %}
+        <footer class="ui labeled icon fluid menu borderless">
+            <div class="ui grid container">
+                <div class="three column row">
+                    <a class="item column">
+                        <i class="location arrow icon"></i>
+                        Location
+                    </a>
+                    <a class="item column">
+                        <i class="calendar alternate icon"></i>
+                        Appointments
+                    </a>
+                    <a class="item column">
+                        <i class="comment icon"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </footer>
+        {% comment %} <-- END: Navbar --> {% endcomment %}
+        <!-- Semantic UI JS (jQuery dependency included) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    </body>
 </html>

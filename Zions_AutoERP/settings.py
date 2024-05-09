@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "parts",
     "locations",
     "jobs",
+    "advertisements",
     "semantic_admin",
     "semantic_forms",
     "django.contrib.admin",

@@ -3,10 +3,18 @@ from locations.models import Location
 
 
 class Vehicle(models.Model):
-    make = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    year = models.IntegerField()
-    color = models.CharField(max_length=50)
+    vin = models.CharField(max_length=17, unique=True)
+    year = models.IntegerField(blank=True, null=True)
+    make = models.CharField(max_length=100, blank=True, null=True)
+    series = models.CharField(max_length=100, blank=True, null=True)
+    model = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+    trim = models.CharField(max_length=100, blank=True, null=True)
+    color = models.CharField(max_length=50, blank=True, null=True)
+    body_style = models.CharField(max_length=50, blank=True, null=True)
     body_style = models.CharField(max_length=50, blank=True, null=True)
     key_location = models.ForeignKey(
         Location,
@@ -16,10 +24,10 @@ class Vehicle(models.Model):
         blank=True,
     )
     drive = models.CharField(max_length=50, blank=True, null=True)
-    vin = models.CharField(max_length=17, unique=True)
     mileage = models.IntegerField()
     fuel_type = models.CharField(max_length=50)
     transmission = models.CharField(max_length=50)
+    cylinder_count = models.IntegerField()
     engine_size = models.DecimalField(max_digits=4, decimal_places=2)
     acquisition_cost = models.DecimalField(max_digits=6, decimal_places=2)
     total_parts_cost = models.DecimalField(

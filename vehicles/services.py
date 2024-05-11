@@ -39,6 +39,7 @@ def get_vin_decode(vin):
         engine_size = get_val_by_var(data, "Displacement (L)")
 
         return {
+            "Vin": vin,
             "Model Year": model_year,
             "Make": make,
             "Series": series,

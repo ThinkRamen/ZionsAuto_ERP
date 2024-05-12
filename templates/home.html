@@ -1,78 +1,85 @@
-<!-- vehicles/templates/home.html -->
+{% load compress %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vehicle Inventory</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vehicle Inventory</title>
         <!-- Semantic UI CSS -->
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
-    </head>
-    <body>
-        {% comment %} <-- START:Navbar --> {% endcomment %}
-        <div class="ui borderless huge menu">
-            <div class="ui container grid">
-                <div class="left item"></div>
-                <h1 class="header item">Zions Auto Sales</h1>
-                <div class="right item"></div>
-            </div>
-        </div>
-        {% comment %} <-- end: Navbar --> {% endcomment %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+        {% comment %} <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> {% endcomment %}
+		{% compress css %}
+		<link rel="stylesheet" href="{% static 'src/output.css' %}" />
+		{% endcompress %}
+	</head>
+	<body class="h-dvh">
+		{% comment %} <-- START:Navbar --> {% endcomment %}
+		<div class="ui borderless huge menu">
+			<div class="ui container grid">
+				<div class="left item"></div>
+				<h1 class="header item">Zions Auto Sales</h1>
+				<div class="right item"></div>
+			</div>
+		</div>
+		{% comment %} <-- end: Navbar --> {% endcomment %} 
         {% block content %}
-            <div class="ui container">
-                <h2 class="ui header">Vehicle Inventory</h2>
-                <div class="ui relaxed divided list">
-                    {% for vehicle in vehicles %}
-                        {% with vehicle.vehicle_photos.first as photo %}
-                            <div class="ui item">
-                                {% if photo %}
-                                    <div class="ui image small left floated">
-                                        <img src="{{ photo.image.url }}"
-                                             alt="Vehicle Photo"
-                                             height="150"
-                                             width="150" />
-                                    </div>
-                                {% else %}
-                                    <div class="ui square image small left floated placeholder">
-                                        <div class="square image" alt="No Image"></div>
-                                    </div>
-                                {% endif %}
-                                <div class="content">
-                                    <h2 class="header">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
-                                    <div class="meta">
-                                        <span>Color: {{ vehicle.color }}</span>
-                                        <span>VIN: {{ vehicle.vin }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endwith %}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endblock content %}
+		<div class="ui container">
+			<h2 class="ui centered header">Vehicle Inventory</h2>
+			<div class="ui relaxed divided list">
+				{% for vehicle in vehicles %} 
+                {% with vehicle.vehicle_photos.first as photo %}
+				<div class="ui item">
+					{% if photo %}
+					<div class="ui image small left floated">
+						<img
+							src="{{ photo.image.url }}"
+							alt="Vehicle Photo"
+                            class="size-40"
+						/>
+					</div>
+					{% else %}
+					<div class="ui square image small left floated placeholder">
+						<div class="square image" alt="No Image"></div>
+					</div>
+					{% endif %}
+					<div class="content">
+						<h2 class="header">
+							{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}
+						</h2>
+						<div class="meta">
+							<span>Color: {{ vehicle.color }}</span>
+							<span>VIN: {{ vehicle.vin }}</span>
+						</div>
+					</div>
+				</div>
+				{% endwith %} {% endfor %}
+			</div>
+		</div>
+		{% endblock content %} 
         {% comment %} <-- START:BottomNav --> {% endcomment %}
-        <footer class="ui labeled icon fluid menu borderless">
-            <div class="ui grid container">
-                <div class="three column row">
-                    <a class="item column">
-                        <i class="location arrow icon"></i>
-                        Location
-                    </a>
-                    <a href="{% url 'create-appointment' %}" class="item column">
-                        <i class="calendar alternate icon"></i>
-                        Appointments
-                    </a>
-                    <a class="item column">
-                        <i class="comment icon"></i>
-                        Contact
-                    </a>
-                </div>
-            </div>
-        </footer>
-        {% comment %} <-- END: Navbar --> {% endcomment %}
-        <!-- Semantic UI JS (jQuery dependency included) -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    </body>
+		<footer class="ui bottom fixed labeled icon fluid menu borderless">
+			<div class="ui grid container">
+				<div class="three column row">
+					<a class="item column">
+						<i class="location arrow icon"></i>
+						Location
+					</a>
+					<a href="{% url 'create-appointment' %}" class="item column">
+						<i class="calendar alternate icon"></i>
+						Appointments
+					</a>
+					<a class="item column">
+						<i class="comment icon"></i>
+						Contact
+					</a>
+				</div>
+			</div>
+		</footer>
+		{% comment %} <-- END: Navbar --> {% endcomment %}
+		<!-- Semantic UI JS (jQuery dependency included) -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+	</body>
 </html>

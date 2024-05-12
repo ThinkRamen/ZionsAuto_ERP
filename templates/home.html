@@ -1,6 +1,6 @@
 <!-- vehicles/templates/home.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,37 +18,39 @@
                 <div class="right item"></div>
             </div>
         </div>
-        {% comment %} <-- END: Navbar --> {% endcomment %}
-        <div class="ui container">
-            <h2 class="ui header">Vehicle Inventory</h2>
-            <div class="ui relaxed divided list">
-                {% for vehicle in vehicles %}
-                    {% with vehicle.vehicle_photos.first as photo %}
-                        <div class="ui item">
-                            {% if photo %}
-                                <div class="ui image small left floated">
-                                    <img src="{{ photo.image.url }}"
-                                         alt="Vehicle Photo"
-                                         height="150"
-                                         width="150" />
-                                </div>
-                            {% else %}
-                                <div class="ui square image small left floated placeholder">
-                                    <div class="square image" alt="No Image"></div>
-                                </div>
-                            {% endif %}
-                            <div class="content">
-                                <h2 class="header">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
-                                <div class="meta">
-                                    <span>Color: {{ vehicle.color }}</span>
-                                    <span>VIN: {{ vehicle.vin }}</span>
+        {% comment %} <-- end: Navbar --> {% endcomment %}
+        {% block content %}
+            <div class="ui container">
+                <h2 class="ui header">Vehicle Inventory</h2>
+                <div class="ui relaxed divided list">
+                    {% for vehicle in vehicles %}
+                        {% with vehicle.vehicle_photos.first as photo %}
+                            <div class="ui item">
+                                {% if photo %}
+                                    <div class="ui image small left floated">
+                                        <img src="{{ photo.image.url }}"
+                                             alt="Vehicle Photo"
+                                             height="150"
+                                             width="150" />
+                                    </div>
+                                {% else %}
+                                    <div class="ui square image small left floated placeholder">
+                                        <div class="square image" alt="No Image"></div>
+                                    </div>
+                                {% endif %}
+                                <div class="content">
+                                    <h2 class="header">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h2>
+                                    <div class="meta">
+                                        <span>Color: {{ vehicle.color }}</span>
+                                        <span>VIN: {{ vehicle.vin }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endblock content %}
         {% comment %} <-- START:BottomNav --> {% endcomment %}
         <footer class="ui labeled icon fluid menu borderless">
             <div class="ui grid container">
@@ -57,7 +59,7 @@
                         <i class="location arrow icon"></i>
                         Location
                     </a>
-                    <a class="item column">
+                    <a href="{% url 'create-appointment' %}" class="item column">
                         <i class="calendar alternate icon"></i>
                         Appointments
                     </a>

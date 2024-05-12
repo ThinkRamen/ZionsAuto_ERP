@@ -19,10 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from vehicles.views import home
+from appointments.views import AppointmentView
 
 
 urlpatterns = [
     path("", home, name="home"),
+    path("create-appointment/", AppointmentView, name="create-appointment"),
     path("admin/", admin.site.urls),
 ]
 

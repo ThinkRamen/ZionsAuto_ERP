@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+{% block content %}
+    <h2 class="ui centered header">
+        Create Appointment <i class="calendar plus outline icon"></i>
+    </h2>
+    <div class="ui divider py-2"></div>
+    <div class="ui centered grid container">
+        <div class="ui form">
+            <div class="fields">
+                <div class="field">
+                    <label>First name</label>
+                    <input type="text" placeholder="First Name">
+                </div>
+                <div class="field">
+                    <label>Last name</label>
+                    <input type="text" placeholder="Last Name">
+                </div>
+                <div class="field">
+                    <label>Date and time</label>
+                    <input type="date" placeholder="Date and time">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

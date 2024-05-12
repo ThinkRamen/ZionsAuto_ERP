@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "storages",
+    "compressor",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,6 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(BASE_DIR, "templates/"),
-            "/Zions_AutoERP/Zions_AutoERP/templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -163,3 +163,9 @@ GS_PROJECT_ID = "zions-autoerp"
 # Static and Media settings
 STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static/"
 MEDIA_URL = "https://storage.googleapis.com/zions-autoerp-media/"
+
+COMPRESS_ROOT = BASE_DIR / "static"
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)

@@ -17,26 +17,30 @@ def validate_phone_number(value):
 
 
 class Appointment(models.Model):
-    date_time = models.DateTimeField()
-    first_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100, blank=True)
-    email = models.EmailField(max_length=100, blank=True)
-    phone_number = models.CharField(
-        max_length=20, blank=True, validators=[validate_phone_number]
-    )
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    phone_number = models.CharField(max_length=20, validators=[validate_phone_number])
 
     def __str__(self):
-        return f"Appointment at {self.date_time} - {self.first_name} {self.last_name}"
+        return f"Appointment at {self.date} : {self.time} - {self.first_name} {self.last_name}"
 
 
 class Quote(Appointment):
     description = models.TextField()
 
+    def __str__(self):
+        return (
+            f"Quote at {self.date} : {self.time} - {self.first_name} {self.last_name}"
+        )
+
 
 class VehicleShowing(Appointment):
     vehicle = models.ForeignKey(
-        Vehicle, on_delete=models.CASCADE
-    )  # ForeignKey to the Vehicle model
+        Vehicle, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
-        return f"Vehicle showing for {self.vehicle} at {self.date_time} - {self.first_name} {self.last_name}"
+        return f"Showing at {self.date} : {self.time} - {self.first_name} {self.last_name} - {self.vehicle}"

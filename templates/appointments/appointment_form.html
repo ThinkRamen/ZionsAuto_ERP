@@ -1,0 +1,47 @@
+{% extends "home.html" %}
+{% block content %}
+    <div class="container">
+        <h2 class="my-2 py-2 ui centered header">
+            Create Appointment <i class="calendar plus outline icon"></i>
+        </h2>
+        <div class="row">
+            <div class="col field">
+                <label>Appointment Type</label>
+                <select id="appointment_type" name="appointment_type">
+                    <option value="vehicle_showing">Vehicle Showing</option>
+                    <option value="quote">Quote</option>
+                </select>
+            </div>
+        </div>
+        <form method="post"
+              action="{% url 'appointments:create-appointment' %}"
+              class="ui form">
+            {% csrf_token %}
+            {% comment %} include quote form html to render form with bootstrap and semantic styles {% endcomment %}
+            {{ quote_form }}
+            <div>
+                <button type="submit" class="my-3 ui right floated button">Create</button>
+            </div>
+        </form>
+        {% comment %} <form method="post" action="{% url 'appointments:create-showing' %}" class="ui form">
+            {% csrf_token %}
+            {{ vehicle_showing_form }}
+            <div>
+                <button type="submit" class="my-3 ui right floated button">Create</button>
+            </div>
+        </form> {% endcomment %}
+    </div>
+    <script>
+        document.getElementById('appointment_type').addEventListener('change', function() {
+            var appointmentType = this.value;
+            console.log('Appointment type changed:', appointmentType);  // Log the appointmentType
+            if (appointmentType === 'vehicle_showing') {
+                document.getElementById('vehicle_showing_form').classList.remove('d-none');
+                document.getElementById('quote_form').classList.add('d-none');
+            } else if (appointmentType === 'quote') {
+                document.getElementById('quote_form').classList.remove('d-none');
+                document.getElementById('vehicle_showing_form').classList.add('d-none');
+            }
+        });
+    </script>
+{% endblock content %}

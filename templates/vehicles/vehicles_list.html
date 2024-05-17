@@ -1,0 +1,38 @@
+{% extends 'home.html' %}
+{% block content %}
+    <div class="ui container">
+        <h2 class="header">Vehicle Inventory</h2>
+        <div class="ui relaxed divided list">
+            {% for vehicle in vehicles %}
+                {% with vehicle.vehicle_photos.first as photo %}
+                    <div class="ui item">
+                        {% if photo %}
+                            <div class="ui image small left floated">
+                                <img src="{{ photo.image.url }}" alt="Vehicle Photo" class="size-40" />
+                            </div>
+                        {% else %}
+                            <div class="ui square image small left floated placeholder">
+                                <div class="square image" alt="No Image"></div>
+                            </div>
+                        {% endif %}
+                        <div class="content">
+                            <h3 class="header">
+                                {{ vehicle.year }} {{ vehicle.make }}
+                                {% if vehicle.series %}{{ vehicle.series }}{% endif %}
+                                {{ vehicle.model }}
+                                {% if vehicle.trim %}- {{ vehicle.trim }}{% endif %}
+                                {% if vehicle.doors %}{{ vehicle.doors }}{% endif %}
+                            </h3>
+                            <div class="p-2">
+                                <h4>Miles: {{ vehicle.mileage }} mi</h4>
+                                <h4>Transmission: {{ vehicle.transmission }}</h4>
+                                <h4>Drive Type: {{ vehicle.drive }}</h4>
+                                <h4>${{ vehicle.price }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

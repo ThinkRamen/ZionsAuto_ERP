@@ -15,7 +15,6 @@ class Vehicle(models.Model):
     trim = models.CharField(max_length=100, blank=True, null=True)
     color = models.CharField(max_length=50, blank=True, null=True)
     body_style = models.CharField(max_length=50, blank=True, null=True)
-    body_style = models.CharField(max_length=50, blank=True, null=True)
     key_location = models.ForeignKey(
         Location,
         on_delete=models.SET_NULL,

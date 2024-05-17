@@ -1,28 +1,30 @@
-<div class="row">
+{% extends 'home.html' %}
+{% block content %}
     <div class="row">
-        <div class="col field">
-            <label>First Name</label>
-            {{ quote_form.first_name }}
+        <div class="row">
+            <div class="col field">
+                <label>First Name</label>
+                {{ quote_form.first_name }}
+            </div>
+            <div class="col field">
+                <label>Last Name</label>
+                {{ quote_form.last_name }}
+            </div>
         </div>
-        <div class="col field">
-            <label>Last Name</label>
-            {{ quote_form.last_name }}
+        <div class="row">
+            <div class="col field">
+                <label>Date</label>
+                {{ quote_form.date }}
+            </div>
+            <div class="col field">
+                <label>Time</label>
+                {{ quote_form.time }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col field">
+                <label>Description</label>
+                {{ quote_form.description }}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col field">
-            <label>Date</label>
-            {{ quote_form.date }}
-        </div>
-        <div class="col field">
-            <label>Time</label>
-            {{ quote_form.time }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col field">
-            <label>Description</label>
-            {{ quote_form.description }}
-        </div>
-    </div>
-</div>

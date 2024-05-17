@@ -5,5 +5,9 @@ from .models import Vehicle
 
 
 def home(request):
+    return render(request, "home.html")
+
+
+def vehicles_list(request):
     vehicles = Vehicle.objects.all()
-    return render(request, "home.html", {"vehicles": vehicles})
+    return render(request, "vehicles/vehicles_list.html", {"vehicles": vehicles})

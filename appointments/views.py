@@ -44,6 +44,7 @@ def create_appointment(request):
         quote_form = forms.QuoteForm()
         print("Quote form errors:", quote_form.errors)
         print("Vehicle showing form errors:", vehicle_showing_form.errors)
+    
     return render(
         request,
         "appointments/appointment_form.html",

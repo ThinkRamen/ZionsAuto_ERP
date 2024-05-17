@@ -1,28 +1,31 @@
-<div class="row">
-    <div class="col field">
-        <label>First Name</label>
-        {{ vehicle_showing_form.first_name }}
-    </div>
-    <div class="col field">
-        <label>Last Name</label>
-        {{ vehicle_showing_form.last_name }}
-    </div>
-</div>
-<div class="row">
-    <div class="col field">
-        <label>Date</label>
-        {{ vehicle_showing_form.date }}
-    </div>
-    <div class="col field">
-        <label>Time</label>
-        {{ vehicle_showing_form.time }}
-    </div>
-</div>
-<div class="row">
+{% extends 'home.html' %}
+{% block content %}
     <div class="row">
         <div class="col field">
-            <label>Vehicle</label>
-            {{ vehicle_showing_form.vehicle }}
+            <label>First Name</label>
+            {{ vehicle_showing_form.first_name }}
+        </div>
+        <div class="col field">
+            <label>Last Name</label>
+            {{ vehicle_showing_form.last_name }}
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col field">
+            <label>Date</label>
+            {{ vehicle_showing_form.date }}
+        </div>
+        <div class="col field">
+            <label>Time</label>
+            {{ vehicle_showing_form.time }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="row">
+            <div class="col field">
+                <label>Vehicle</label>
+                {{ vehicle_showing_form.vehicle }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

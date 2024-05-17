@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "appointments",
     "semantic_admin",
     "semantic_forms",
-    "django_browser_reload",
     "storages",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -56,7 +55,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -164,3 +162,5 @@ GS_PROJECT_ID = "zions-autoerp"
 # Static and Media settings
 STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static/"
 MEDIA_URL = "https://storage.googleapis.com/zions-autoerp-media/"
+
+MAPS_API_KEY = os.getenv("MAPS_API_KEY")

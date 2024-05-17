@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
-from vehicles.views import home, vehicles_list
+from vehicles.views import home, vehicles_list, location
 
 
 urlpatterns = [
@@ -11,12 +11,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("appointments/", include("appointments.urls")),
     path("vehicles/", vehicles_list, name="vehicles"),
-    path(
-        "location/",
-        TemplateView.as_view(template_name="location.html"),
-        name="location",
-    ),
-    path("__reload__/", include("django_browser_reload.urls")),
+    path("location/", location, name="location"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

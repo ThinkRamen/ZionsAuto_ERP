@@ -3,6 +3,7 @@
     <div class="ui container">
         <div class="d-flex-column p-2">
             <h2 class="header text-center p-2">Location</h2>
+            <!-- Ensure the map div is present with appropriate styling -->
             <div id="map" style="height: 50vh"></div>
             <h3 class="header text-center p-2">
                 <a href="https://www.google.com/maps/dir//6807+30th+St,+North+Highlands,+CA+95660/@38.6910524,-121.4001543,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x809b277fb11c51af:0xd58a53d482349d74!2m2!1d-121.3975794!2d38.6910524!3e0?entry=ttu"
@@ -10,27 +11,34 @@
             </h3>
         </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap"
+    <!-- Load the Google Maps API with your API key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&callback=initMap&loading=async"
             async
             defer></script>
     <script>
-        // Initialize the map
-        function initMap() {
-            // Define the coordinates for the location
-            //38.69102323315099, -121.39761330197553
-            var location = {lat: 38.69102323315099, lng: -121.39761330197553};
-            // Create a new map centered at the specified location
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: location,
-                zoom: 17 // Adjust the zoom level as needed
-            });
-            // Add a marker for the location
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                title: '6807 30th St, North Highlands, CA 95660',
-                label: "Zions Auto Sales"
-            });
+    // Define the single initMap function to initialize the map
+    async function initMap(): Promise<void> {
+        // Define the coordinates for the location
+        const location = { lat: 38.69102323315099, lng: -121.39761330197553 };
+
+        // Request needed libraries.
+        const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
+
+        // Create a new map centered at the specified location
+        map = new Map(document.getElementById('map') as HTMLElement,
+        {
+            center: location,
+            zoom: 17 // Adjust the zoom level as needed
         }
+        );
+        // Add a marker for the location
+        const marker = new AdvancedMarkerElement({
+            position: location,
+            map: map,
+            title: '6807 30th St, North Highlands, CA 95660',
+            label: "Zions Auto Sales"
+        });
+    }
     </script>
 {% endblock content %}

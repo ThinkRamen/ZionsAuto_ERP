@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import VinForm
+from .services import get_vin_decode
 from .models import Vehicle
 from django.conf import settings
 
@@ -10,11 +13,17 @@ def home(request):
     return render(request, "home.html")
 
 
-def location(request):
-    api_key = settings.MAPS_API_KEY
-    return render(request, "location.html", {"api_key": api_key})
-
-
 def vehicles_list(request):
     vehicles = Vehicle.objects.all()
-    return render(request, "vehicles/vehicles_list.html", {"vehicles": vehicles})
+    return render(request, "vehicles_list.html", {"vehicles": vehicles})
+
+
+def vehicle_details(request, pk):
+    vehicle = get_object_or_404(Vehicle, pk=pk)
+
+    return render(request, "vehicle_details.html", {"vehicle": vehicle})
+
+
+def add_vehicle_by_vin(request):
+    form = VinForm
+    return render(request, "admin/add-by-vin.html", {"form": form})

@@ -16,13 +16,15 @@
                             </div>
                         {% endif %}
                         <div class="content">
-                            <h3 class="header">
-                                {{ vehicle.year }} {{ vehicle.make }}
-                                {% if vehicle.series %}{{ vehicle.series }}{% endif %}
-                                {{ vehicle.model }}
-                                {% if vehicle.trim %}- {{ vehicle.trim }}{% endif %}
-                                {% if vehicle.doors %}{{ vehicle.doors }}{% endif %}
-                            </h3>
+                            <a href="{% url 'vehicle-details' pk=vehicle.pk %}">
+                                <h3 class="header">
+                                    {{ vehicle.year }} {{ vehicle.make }}
+                                    {% if vehicle.series %}{{ vehicle.series }}{% endif %}
+                                    {{ vehicle.model }}
+                                    {% if vehicle.trim %}- {{ vehicle.trim }}{% endif %}
+                                    {% if vehicle.doors %}{{ vehicle.doors }}{% endif %}
+                                </h3>
+                            </a>
                             <div class="p-2">
                                 <h4>Miles: {{ vehicle.mileage }} mi</h4>
                                 <h4>Transmission: {{ vehicle.transmission }}</h4>

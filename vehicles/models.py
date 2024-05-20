@@ -23,12 +23,16 @@ class Vehicle(models.Model):
         blank=True,
     )
     drive = models.CharField(max_length=50, blank=True, null=True)
-    mileage = models.IntegerField()
+    mileage = models.IntegerField(blank=True, null=True)
     fuel_type = models.CharField(max_length=50)
-    transmission = models.CharField(max_length=50)
-    cylinder_count = models.IntegerField()
-    engine_size = models.DecimalField(max_digits=4, decimal_places=2)
-    acquisition_cost = models.DecimalField(max_digits=6, decimal_places=2)
+    transmission = models.CharField(max_length=50, blank=True, null=True)
+    cylinder_count = models.IntegerField(blank=True, null=True)
+    engine_size = models.DecimalField(
+        max_digits=4, decimal_places=2, blank=True, null=True
+    )
+    acquisition_cost = models.DecimalField(
+        max_digits=6, decimal_places=2, blank=True, null=True
+    )
     total_parts_cost = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True
     )
@@ -37,14 +41,12 @@ class Vehicle(models.Model):
         return f"{self.year} {self.make} {self.model} {self.color} {self.vin}"  # Customize the representation
 
     def save(self, *args, **kwargs):
-        # Check if the Vehicle instance has a primary key (i.e., has been saved to the database)
-        if self.pk is None:
-            super().save(*args, **kwargs)  # Save the Vehicle instance first
+        if not self.pk:  # Only calculate if it's a new instance
+            super().save(*args, **kwargs)  # Save the instance to get a primary key
+            total_parts_cost = sum(part.price or 0 for part in self.parts.all())
+            total_cost = total_parts_cost + (self.acquisition_cost or 0)
+            self.total_cost = total_cost
 
-        # Calculate the total cost of all parts associated with this vehicle
-        self.total_parts_cost = (
-            sum(part.price for part in self.parts.all()) + self.acquisition_cost
-        )
         super().save(*args, **kwargs)
 
 

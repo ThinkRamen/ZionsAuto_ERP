@@ -24,8 +24,8 @@ class Vehicle(models.Model):
     )
     drive = models.CharField(max_length=50, blank=True, null=True)
     mileage = models.IntegerField(blank=True, null=True)
-    fuel_type = models.CharField(max_length=50)
-    transmission = models.CharField(max_length=50, blank=True, null=True)
+    fuel_type = models.CharField(max_length=50, blank=True, null=True)
+    transmission = models.CharField(max_length=100, blank=True, null=True)
     cylinder_count = models.IntegerField(blank=True, null=True)
     engine_size = models.DecimalField(
         max_digits=4, decimal_places=2, blank=True, null=True

@@ -13,6 +13,10 @@ def home(request):
     return render(request, "home.html")
 
 
+def index(request):
+    return render(request, "index.html")
+
+
 def vehicles_list(request):
     vehicles = Vehicle.objects.all()
     return render(request, "vehicles_list.html", {"vehicles": vehicles})

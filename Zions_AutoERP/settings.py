@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG")
+print("Debug: ", DEBUG)
 ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "localhost", "10.0.0.93", "10.0.0.93:8000"]
 
 
@@ -54,6 +55,19 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "Zions_AutoERP.urls"
 print(os.path.join(BASE_DIR, "templates/"))
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+    },
+    "media": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+    },
+}
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -120,35 +134,25 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Google Cloud Storage Credentials
+## Google Cloud Storage Credentials
 gcs_credentials = service_account.Credentials.from_service_account_info(
     json.loads(os.getenv("GOOGLE_SERVICE_KEY"))
 )
-
-# Set the Google Cloud Storage Bucket Name
+### Set the Google Cloud Storage Bucket Name
 GS_BUCKET_NAME = "zions-autoerp-static"
-
-# Storage Classes
-DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-
-# Google Cloud Storage Configuration
+### Google Cloud Storage Configuration
 GS_MEDIA_NAME = "zions-autoerp-media"
 GS_CREDENTIALS = gcs_credentials
-
 GS_PROJECT_ID = "zions-autoerp"
 
-# Static and Media settings
-STATIC_URL = "https://storage.googleapis.com/zions-autoerp-static/"
-MEDIA_URL = "https://storage.googleapis.com/zions-autoerp-media/"
+## Static and Media settings
+STATIC_URL = os.path.join(BASE_DIR, "static/")
+MEDIA_URL = os.path.join(BASE_DIR, "media/")
+
+## Static and Media directories
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MAPS_API_KEY = os.getenv("MAPS_API_KEY")
